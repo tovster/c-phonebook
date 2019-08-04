@@ -24,7 +24,6 @@ void menu(record_t *root) {
         menuOption = strtol(userInput, NULL, 0);
         if (menuOption >= 1) {
             if(menuOption <= 6) {
-                printf("\n%d, is your option", menuOption);
                 break;
             } else {
                 printf("Invalid option, please try again\n");
@@ -32,6 +31,22 @@ void menu(record_t *root) {
         } else {
             printf("Invalid option, please try again.\n");
         }
+    }
+
+    switch(menuOption) {
+        case 1:
+
+            break;
+        case 2:
+            break;
+        case 3:
+            break;
+        case 4:
+            break;
+        case 5:
+            break;
+        case 6:
+            break;
     }
 }
 

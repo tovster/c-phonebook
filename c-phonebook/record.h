@@ -6,6 +6,7 @@
 #define C_PHONEBOOK_RECORD_H
 
 typedef struct record {
+    int *id;
     char *name;
     char *address;
     char *gender;
