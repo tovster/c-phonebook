@@ -4,7 +4,6 @@
 
 #ifndef C_PHONEBOOK_RECORD_H
 #define C_PHONEBOOK_RECORD_H
-#define MAX_LEN 25
 
 typedef struct record {
     char *name;
@@ -12,6 +11,8 @@ typedef struct record {
     char *gender;
     long *p_num;
     char *e_mail;
+    struct record *left;
+    struct record *right;
 } record_t;
 
 #endif //C_PHONEBOOK_RECORD_H
