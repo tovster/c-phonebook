@@ -7,10 +7,8 @@
 
 #include <stdio.h>
 
-void menu();
+void menu(record_t *);
 
-void menu() {
-    printf("******* 📞Contacts *******");
-}
+
 
 #endif //C_PHONEBOOK_MENU_H
