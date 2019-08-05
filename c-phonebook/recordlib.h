@@ -25,7 +25,6 @@ void deleteRecord(record_t *record);
 
 void deleteList(record_t *root);
 
-void insertRecord(record_t *root);
 void printList(record_t *head);
 
 record_t modifyRecord(record_t *record);
@@ -145,8 +144,6 @@ record_t *createRecord() {
     //filling email
     
     //filling next node
-    //Node should be null as it is independent of the linked list
-    record->next == NULL;
     
     printf("ID: %d,\n", record->id);
     printf("Name: %s,\n", record->name);
@@ -158,23 +155,30 @@ record_t *createRecord() {
 
 }
 
-record_t insertRecord(record_t *head){
-    record_t* newRecord;
-    newRecord = createRecord();
-    newRecord->next = head;
-    head = newRecord;
-    
+record_t* createList(){
+    record_t *record=NULL, *current=NULL, *head=NULL;
+    if((record=createRecord()) != NULL){
+        if(current == NULL){
+            head = record;
+        }
+        else{
+            current->next = record;
+        }
+        current = record;
+    }
     return head;
-            
 }
 
 void printList(record_t *head){
     
-    record_t *current = head;
-    while(current != NULL) {
-        printf("%d", current->id);
-        printf("%s", current->name);
-        current = current->next;
+    if (head == NULL) {
+        printf("Linked List is empty.\n");
+    } else {
+        record_t* current = head;
+        while (current != NULL) {
+            printf("id: %d name: %s\n", current->id, current->name);
+            current = current -> next;
+        }
     }
 }
 
