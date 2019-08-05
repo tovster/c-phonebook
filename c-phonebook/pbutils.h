@@ -54,8 +54,29 @@ int numSort (int *number1, int *number2) {
     }
 }
 
+//
 record_t* sortRecordList (record_t* head, char sortBy) {
-    return NULL;
+    record_t *sortedRecordList = NULL;
+    switch (sortBy) {
+        // ID
+        case 'i':
+            break;
+        // NAME
+        case 'n':
+            break;
+        // ADDRESS
+        case 'a':
+            break;
+        // PHONE
+        case 'p':
+            break;
+        // EMAIL
+        case 'e':
+            break;
+        default:
+            printf("Invalid sortBy char.");
+            return NULL;
+    }
 }
 
 #endif //C_PHONEBOOK_PBUTILS_H
