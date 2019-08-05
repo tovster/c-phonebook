@@ -37,8 +37,21 @@ int txtSort (char *string1, char *string2) {
     return 2;
 }
 
+// Sorts numbers by taking two numbers
+// and comparing the values
+// 0 = number1 is larger
+// 1 = number2 is larger
+// 2 = numbers are equal, leave numbers alone
 int numSort (int *number1, int *number2) {
-    return 1;
+    if (number1 > number2) {
+        return 0;
+    }
+    if (number1 < number2) {
+        return 1;
+    }
+    if (number1 == number2) {
+        return 2;
+    }
 }
 
 record_t* sortRecordList (record_t* head, char sortBy) {
