@@ -86,9 +86,65 @@ record_t *createRecord() {
             printf("Invalid input! Please try again.");
         }
     }
+    
+    //filling address
+    while (1) {
+        char tempAddress[MAX_LEN * 2];
+        FLUSH;
+        printf("Please enter a address: ");
+        fgets(tempAddress, MAX_LEN*2, stdin);
 
+        if (strlen(tempAddress) > 1) {
+            record->address = (char *) malloc(sizeof(tempAddress) + 1);
+            if (record->address == NULL) {
+                printf("Can't allocate memory for this record's address!");
+                free(record->id);
+                free(record);
+                record = NULL;
+                return record;
+            }
+            strncpy(record->address, tempAddress, sizeof(tempAddress));
+            record->address[strcspn(record->address, "\n")] = 0;
+            break;
+        } else {
+            printf("Invalid input! Please try again.");
+        }
+    }
+    FLUSH;
+    //filling gender
+    char gender;
+
+    while (1) {
+        char tempGender;
+
+        printf("Please enter your gender (M, F, X): ");
+        fgets(&tempGender, 2, stdin);
+
+        if (tempGender == 'M' || tempGender == 'F' || tempGender == 'X') {
+            gender = tempGender;
+            break;
+        } else {
+            printf("Invalid input! Please try again.");
+        }
+    }
+    record->gender = (char *) malloc(gender);
+    if (record->gender == NULL) {
+        printf("Can't allocate memory for this record's gender!");
+        free(record->id);
+        free(record);
+        record = NULL;
+        return record;
+    }
+    memcpy(record->gender, &gender, 1);
+
+    //filling phone number
+    
+    //filling email
+    
     printf("ID: %d,\n", record->id);
-    printf("Name: %s\n", record->name);
+    printf("Name: %s,\n", record->name);
+    printf("Address: %s,\n", record->address);
+    printf("Gender: %c,\n", record->gender);
 
     return record;
 
