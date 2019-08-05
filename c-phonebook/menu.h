@@ -36,7 +36,11 @@ void menu(record_t *root) {
 
     switch(menuOption) {
         case 1:
-            createRecord();
+            record_t head = NULL
+            head = insertRecord(head);
+            //Testing records
+            insertRecord(head);
+            printList(head);
             break;
         case 2:
             break;
