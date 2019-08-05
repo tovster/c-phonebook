@@ -144,7 +144,7 @@ record_t *createRecord() {
     printf("ID: %d,\n", record->id);
     printf("Name: %s,\n", record->name);
     printf("Address: %s,\n", record->address);
-    printf("Gender: %c,\n", record->gender);
+    printf("Gender: %s,\n", record->gender);
 
     return record;
 
