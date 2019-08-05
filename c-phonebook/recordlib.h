@@ -25,6 +25,9 @@ void deleteRecord(record_t *record);
 
 void deleteList(record_t *root);
 
+void insertRecord(record_t *root);
+void printList(record_t *head);
+
 record_t modifyRecord(record_t *record);
 
 record_t searchRecord(int id, char *name);
@@ -141,6 +144,10 @@ record_t *createRecord() {
     
     //filling email
     
+    //filling next node
+    //Node should be null as it is independent of the linked list
+    record->next == NULL;
+    
     printf("ID: %d,\n", record->id);
     printf("Name: %s,\n", record->name);
     printf("Address: %s,\n", record->address);
@@ -150,5 +157,27 @@ record_t *createRecord() {
 
 
 }
+
+record_t insertRecord(record_t *head){
+    record_t* newRecord;
+    newRecord = createRecord();
+    newRecord->next = head;
+    head = newRecord;
+    
+    return head;
+            
+}
+
+void printList(record_t *head){
+    
+    record_t *current = head;
+    while(current != NULL) {
+        printf("%d", current->id);
+        printf("%s", current->name);
+        current = current->next;
+    }
+}
+
+
 
 #endif //C_PHONEBOOK_RECORDLIB_H
