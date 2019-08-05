@@ -12,8 +12,8 @@ typedef struct record {
     char *gender;
     long *p_num;
     char *e_mail;
-    struct record *left;
-    struct record *right;
+    struct record *next;
+    struct record *prev;
 } record_t;
 
 #endif //C_PHONEBOOK_RECORD_H
