@@ -4,7 +4,7 @@
 #include "recordlib.h"
 #include "menu.h"
 
-#define FLUSH stdin=freopen(NULL, "r", stdin)
+
 
 
 int main() {

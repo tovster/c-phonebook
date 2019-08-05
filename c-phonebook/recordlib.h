@@ -8,6 +8,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include "record.h"
+#include "pbutils.h"
+
 #define MAX_LEN 25
 
 record_t *createRecord();
@@ -30,9 +32,11 @@ record_t *createRecord() {
 
     // filling id
     int id;
+
     while(1) {
         char tempId;
         printf("Enter ID number: ");
+        FLUSH;
         fgets(&tempId, MAX_LEN, stdin);
 
         id = strtol(&tempId, NULL, 0);
@@ -42,10 +46,20 @@ record_t *createRecord() {
             printf("Incorrect value! Please try again.");
         }
     }
-
+    record->id = (int *) malloc(sizeof(&id));
+    if (record->id == NULL) {
+        free(record);
+        printf("Can not allocate memory for this contact. \n");
+        return NULL;
+    }
     memcpy(&record->id, &id, sizeof(&id));  // copying the id into the record
 
-    return &record;
+    //filling name
+    printf("Id Num = %d", record->id);
+
+    return record;
+
+
 }
 
 #endif //C_PHONEBOOK_RECORDLIB_H

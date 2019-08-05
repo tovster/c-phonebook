@@ -6,7 +6,7 @@
 #define C_PHONEBOOK_MENU_H
 
 #include <stdio.h>
-#define FLUSH stdin=freopen(NULL, "r", stdin)
+#include "pbutils.h"
 
 void menu(record_t*);
 
@@ -17,11 +17,12 @@ void menu(record_t *root) {
     printf("4.Delete\t5.Search\t\t6.Exit\n\n");
 
     int menuOption = 0;
+    char userInput;
+    userInput = 'a';
     while (1) {
-        char *userInput;
         printf("Please select an option: ");
-        fgets(userInput, sizeof(int), stdin);
-        menuOption = strtol(userInput, NULL, 0);
+        fgets(&userInput, sizeof(int), stdin);
+        menuOption = strtol(&userInput, NULL, 0);
         if (menuOption >= 1) {
             if(menuOption <= 6) {
                 break;
@@ -35,7 +36,7 @@ void menu(record_t *root) {
 
     switch(menuOption) {
         case 1:
-
+            createRecord();
             break;
         case 2:
             break;
