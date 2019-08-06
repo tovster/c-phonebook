@@ -132,9 +132,6 @@ record_t *createRecord() {
     }
     memcpy(record->gender, &gender, 1);
 
-    //WORK IN PROGRESS, STILL NEEDS TESTING
-    //filling phone number
-    //Phone number must be 10 digits
     long p_num;
 
     while (1) {
