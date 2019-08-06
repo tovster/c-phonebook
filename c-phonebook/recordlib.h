@@ -288,12 +288,68 @@ void modifyRecord(record_t *head, int index, char field) {
                 }
             }
         case 'a':
+            while (1) {
+                char tempAddress[MAX_LEN * 2];
+                FLUSH;
+                printf("Please enter a address: ");
+                fgets(tempAddress, MAX_LEN * 2, stdin);
+
+                if (strlen(tempAddress) > 1) {
+                    strncpy(current->address, tempAddress, sizeof(tempAddress));
+                    current->address[strcspn(current->address, "\n")] = 0;
+                    break;
+                } else {
+                    printf("Invalid input! Please try again.");
+                }
+            }
             break;
         case 'g':
+            while (1) {
+                char tempGender;
+
+                printf("Please enter your gender (M, F, X): ");
+                fgets(&tempGender, 2, stdin);
+
+                if (tempGender == 'M' || tempGender == 'F' || tempGender == 'X') {
+                    memcpy(current->gender, &tempGender, 1);
+                    break;
+                } else {
+                    printf("Invalid input! Please try again.");
+                }
+            }
             break;
         case 'p':
+            while (1) {
+                long p_num;
+                char temp_p_num[11];
+                FLUSH;
+                printf("Please enter a 10 digit phone number: ");
+                fgets(temp_p_num, 11, stdin);
+                //phone number must only contain digits
+                p_num = strtol(temp_p_num, NULL, 0);
+                if (p_num > 999999999) {
+                    memcpy(current->p_num, &p_num, sizeof(p_num));
+                    break;
+                } else {
+                    printf("Invalid input! Please try again.");
+                }
+            }
             break;
         case 'e':
+            while (1) {
+                char tempEmail[MAX_LEN * 2];
+                FLUSH;
+                printf("Please enter e-mail: ");
+                fgets(tempEmail, MAX_LEN * 2, stdin);
+
+                if (strlen(tempEmail) > 1) {
+                    strncpy(current->e_mail, tempEmail, sizeof(tempEmail));
+                    current->e_mail[strcspn(current->e_mail, "\n")] = 0;
+                    break;
+                } else {
+                    printf("Invalid input! Please try again.");
+                }
+            }
             break;
         default:
             exit(-1);
