@@ -10,7 +10,7 @@ typedef struct record {
     char *name;
     char *address;
     char *gender;
-    long *p_num;
+    char *p_num;
     char *e_mail;
     struct record_t *next;
 } record_t;
