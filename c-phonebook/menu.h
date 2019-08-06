@@ -11,7 +11,7 @@
 
 void menu(record_t*);
 
-void menu(record_t *root) {
+void menu(record_t *head) {
     printf("********** 📞 CONTACTS **********\n\n");
     printf("Please select a menu option\n");
     printf("1.Add\t\t2.View All\t\t3.Modify\n");
@@ -37,18 +37,19 @@ void menu(record_t *root) {
 
     switch(menuOption) {
         case 1:
-            //*head = createList();
-            break;
+            head = createList();
+            menu(head);
         case 2:
-            break;
+            printList(head);
+            menu(head);
         case 3:
-            break;
+            menu(head);
         case 4:
-            break;
+            menu(head);
         case 5:
-            break;
+            menu(head);
         case 6:
-            break;
+            menu(head);
     }
 }
 

@@ -10,9 +10,8 @@
 int main() {
     setbuf(stdout, NULL);
     //Menu
-    record_t *record;
-    //menu(&record);
-    record = createList();
+    record_t *record = NULL;
+    menu(record);
     //------------------------------------------
     
     //Testing list

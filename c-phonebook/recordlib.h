@@ -205,19 +205,8 @@ record_t *createRecord() {
             printf("Invalid input! Please try again.");
         }
     }
-    
-    //filling next node
-    
-    printf("ID: %d,\n", record->id);
-    printf("Name: %s,\n", record->name);
-    printf("Address: %s,\n", record->address);
-    printf("Gender: %s,\n", record->gender);
-    printf("Phone Number: %ld,\n", *(record->p_num));
-    printf("Email: %s,\n", record->e_mail);
 
     return record;
-
-
 }
 
 record_t *createList(){
@@ -237,13 +226,23 @@ record_t *createList(){
 }
 
 //Broke 
-//void printList(record_t *head){
-//    // record_t *current = (record_t *) malloc(sizeof(record_t));
-//    while (current != NULL) {
-//            printf("id: %d name: %s\n", current->id, current->name);
-//            current = current->next;
-//        }
-//}
+void printList(record_t *head){
+    if (head == NULL) {
+        printf("Contact list is empty\n");
+    } else {
+        printf("Your contacts: \n\n");
+        record_t* current = head;
+        while (current != NULL) {
+            printf("ID: %d\n", current->id);
+            printf("Name: %s\n", current->name);
+            printf("Address: %s\n", current->address);
+            printf("Gender: %s\n", current->gender);
+            printf("Phone Number: %ld\n", *(current->p_num));
+            printf("Email: %s\n\n", current->e_mail);
+            current = current -> next;
+        }
+    }
+}
 
 
 
