@@ -48,6 +48,7 @@ void menu(record_t *head) {
             printList(head);
             menu(head);
         case 3:
+            //Ask for index, and field
             modifyRecord(head, 1, 'n');
             menu(head);
         case 4:

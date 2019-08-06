@@ -295,6 +295,7 @@ void modifyRecord(record_t *head, int index, char field) {
                     printf("Invalid input! Please try again.");
                 }
             }
+            break;
         case 'a':
             while (1) {
                 char tempAddress[MAX_LEN * 2];
