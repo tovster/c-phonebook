@@ -21,8 +21,6 @@ record_t *createList();
 
 void appendRecord(record_t *);
 
-void freeRecord(record_t *);
-
 void deleteRecord(record_t **, int);
 
 void printList(record_t *head);
@@ -32,7 +30,7 @@ void modifyRecord(record_t*, int, char);
 record_t searchRecord(int id, char *name);
 
 // Function definitions
-int id = 1;
+int id = 0;
 record_t *createRecord() {
 
     // mallocing record_t
@@ -51,7 +49,6 @@ record_t *createRecord() {
     }
 
     memcpy(&record->id, &id, sizeof(&id));  // copying the id into the record
-    id++;
 
     //filling name
 
@@ -186,7 +183,7 @@ record_t *createRecord() {
             printf("Invalid input! Please try again.");
         }
     }
-
+    id++;
     return record;
 }
 
@@ -235,30 +232,44 @@ void printList(record_t *head) {
     }
 }
 
-void freeRecord(record_t* record) {
-    free(record->id);
-    free(record->name);
-    free(record->gender);
-    free(record->address);
-    free(record->e_mail);
-    free(record->p_num);
-    free(record);
-    printf("Freed record");
+void removeFirst(record_t** head) {
+    if (*head == NULL) {
+        printf("The list is already empty. \n");
+    } else {
+        record_t* toDelete = *head;
+        *head = (*head)->next;
+        free(toDelete);
+    }
 }
 
 void deleteRecord(record_t **head, int index) {
+    register int i = 0;
     record_t* current = *head;
     record_t* tmp = NULL;
 
-    if (index == 1) {
+    if (index == 0) {
         if(*head == NULL) {
             printf("List is already empty. \n");
         } else {
             record_t* toDelete = *head;
             *head = (*head)->next;
-            freeRecord(*head);
+            removeFirst(head);
         }
     }
+
+    for (i = 0; i < index-1; ++i) {
+        if(current->next == NULL) {
+            printf("Broken Linked List \n");
+            exit(-1);
+        }
+        current = current->next;
+    }
+
+    tmp = current->next;
+    if (current->next != NULL) {
+        current->next = tmp->next;
+    }
+    free(tmp);
 }
 
 void modifyRecord(record_t *head, int index, char field) {
