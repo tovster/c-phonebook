@@ -180,8 +180,6 @@ record_t *createRecord() {
     }
     
     // filling email
-    char email[MAX_LEN * 2];
-
     while (1) {
         char tempEmail[MAX_LEN * 2];
         FLUSH;
@@ -226,13 +224,15 @@ record_t *createList(){
     record_t *record=NULL, *current=NULL, *head=NULL;
 
     while((record=createRecord()) != NULL){
-        if(current == NULL){
+        if(head == NULL) {
             head = record;
         }
-        else{
+        else {
             current->next = record;
         }
+        current = record;
     }
+    printf("\nDone getting records");
     return head;
 }
 

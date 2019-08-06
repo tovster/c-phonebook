@@ -12,7 +12,7 @@ int main() {
     //Menu
     record_t *record;
     //menu(&record);
-    record = createRecord();
+    record = createList();
     //------------------------------------------
     
     //Testing list
