@@ -18,6 +18,8 @@ record_t *createRecord();
 
 record_t *createList();
 
+void appendRecord(record_t*);
+
 record_t *rebuildList(record_t *root);
 
 void displayList(record_t *root);
@@ -225,7 +227,18 @@ record_t *createList(){
     return head;
 }
 
-//Broke 
+void appendRecord(record_t *head) {
+    if (head == NULL) {
+        printf("Contact list is empty. \n");
+    } else {
+        record_t *current = head;
+        while (current->next != NULL) {
+            current = current->next;
+        }
+        current -> next = createRecord();
+    }
+}
+
 void printList(record_t *head){
     if (head == NULL) {
         printf("Contact list is empty\n");

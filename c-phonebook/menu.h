@@ -37,7 +37,11 @@ void menu(record_t *head) {
 
     switch(menuOption) {
         case 1:
-            head = createList();
+            if (head == NULL) {
+                head = createList();
+            } else {
+                appendRecord(head);
+            }
             menu(head);
         case 2:
             printList(head);
@@ -49,7 +53,7 @@ void menu(record_t *head) {
         case 5:
             menu(head);
         case 6:
-            menu(head);
+            exit(0);
     }
 }
 
