@@ -8,6 +8,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <ctype.h>
 #include "record.h"
 #include "pbutils.h"
 
@@ -46,11 +47,17 @@ record_t *createRecord() {
     while (1) {
         char tempId;
         FLUSH;
-        printf("Enter ID number: ");
+        printf("Enter ID number: (Enter 0 to exit)");
         fgets(&tempId, MAX_LEN, stdin);
 
         id = strtol(&tempId, NULL, 0);
-        if (id > 0) {
+        //Go back to main menu if input == 0
+        if (id == 0){
+            //Back method to go back to the main menu
+            printf("Exiting record creation");
+            return NULL;
+        }
+        else if(id > 0) {
             break;
         } else {
             printf("Incorrect value! Please try again.");
@@ -62,6 +69,7 @@ record_t *createRecord() {
         printf("Can not allocate memory for this contact. \n");
         return NULL;
     }
+    
     memcpy(&record->id, &id, sizeof(&id));  // copying the id into the record
 
     //filling name
@@ -139,9 +147,62 @@ record_t *createRecord() {
     }
     memcpy(record->gender, &gender, 1);
 
+    //WORK IN PROGRESS, STILL NEEDS TESTING
     //filling phone number
+    //Phone number must be 10 digits
+    while(1){
+        char temp_p_num[10];
+        FLUSH;
+        printf("Please enter a 10 digit phone number: ");
+        fgets(temp_p_num, 10, stdin);
+        //phone number must only contain digits
+        if (strlen(temp_p_num) == 10) {
+            for (int i = 0; i < 10; i++){
+                if (!isdigit(temp_p_num[i])) {
+                    break;
+                }
+            }
+            record->p_num = (char *) malloc(sizeof(temp_p_num) + 1);
+            if (record->p_num == NULL) {
+                printf("Can't allocate memory for this record's phone number!");
+                free(record->id);
+                free(record);
+                record = NULL;
+                return record;
+            }
+
+            strncpy(record->p_num, temp_p_num, sizeof(temp_p_num));
+            record->p_num[strcspn(record->p_num, "\n")] = 0;
+            break;
+        } else {
+            printf("Invalid input! Please try again.");
+        }
+    }
     
     //filling email
+        while (1) {
+        char tempEmail[MAX_LEN * 2];
+        FLUSH;
+        printf("Please enter e-mail : ");
+        fgets(tempEmail, MAX_LEN*2, stdin);
+
+        if (strlen(tempEmail) > 1) {
+            record->e_mail = (char *) malloc(sizeof(tempEmail) + 1);
+            if (record->e_mail == NULL) {
+                printf("Can't allocate memory for this record's e_mail!");
+                free(record->id);
+                free(record);
+                record = NULL;
+                return record;
+            }
+            strncpy(record->e_mail, tempEmail, sizeof(tempEmail));
+            record->e_mail[strcspn(record->e_mail, "\n")] = 0;
+            break;
+        } else {
+            printf("Invalid input! Please try again.");
+        }
+    }
+    FLUSH;
     
     //filling next node
     
@@ -149,6 +210,8 @@ record_t *createRecord() {
     printf("Name: %s,\n", record->name);
     printf("Address: %s,\n", record->address);
     printf("Gender: %s,\n", record->gender);
+    printf("Phone Number: %s,\n", record->p_num);
+    printf("Email: %s,\n", record->e_mail);
 
     return record;
 
@@ -157,30 +220,28 @@ record_t *createRecord() {
 
 record_t* createList(){
     record_t *record=NULL, *current=NULL, *head=NULL;
-    if((record=createRecord()) != NULL){
+    while((record=createRecord()) != NULL){
         if(current == NULL){
             head = record;
+            break;
         }
         else{
             current->next = record;
+            break;
         }
-        current = record;
     }
     return head;
 }
 
+//Broke 
 void printList(record_t *head){
-    
-    if (head == NULL) {
-        printf("Linked List is empty.\n");
-    } else {
-        record_t* current = head;
-        while (current != NULL) {
+    record_t *current = (record_t *) malloc(sizeof(record_t)
+    while (current != NULL) {
             printf("id: %d name: %s\n", current->id, current->name);
-            current = current -> next;
+            current = current->next;
         }
-    }
 }
+
 
 
 
