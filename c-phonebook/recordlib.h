@@ -179,30 +179,34 @@ record_t *createRecord() {
         }
     }
     
-//    //filling email
-//        while (1) {
-//        char tempEmail[MAX_LEN * 2];
-//        FLUSH;
-//        printf("Please enter e-mail : ");
-//        fgets(tempEmail, MAX_LEN*2, stdin);
-//
-//        if (strlen(tempEmail) > 1) {
-//            record->e_mail = (char *) malloc(sizeof(tempEmail) + 1);
-//            if (record->e_mail == NULL) {
-//                printf("Can't allocate memory for this record's e_mail!");
-//                free(record->id);
-//                free(record);
-//                record = NULL;
-//                return record;
-//            }
-//            strncpy(record->e_mail, tempEmail, sizeof(tempEmail));
-//            record->e_mail[strcspn(record->e_mail, "\n")] = 0;
-//            break;
-//        } else {
-//            printf("Invalid input! Please try again.");
-//        }
-//    }
-//    FLUSH;
+    // filling email
+    char email[MAX_LEN * 2];
+
+    while (1) {
+        char tempEmail[MAX_LEN * 2];
+        FLUSH;
+        printf("Please enter e-mail: ");
+        fgets(tempEmail, MAX_LEN*2, stdin);
+
+        if (strlen(tempEmail) > 1) {
+            record->e_mail = (char *) malloc(sizeof(tempEmail) + 1);
+            if (record->e_mail == NULL) {
+                printf("Can't allocate memory for this record's e_mail!");
+                free(record->p_num);
+                free(record->gender);
+                free(record->address);
+                free(record->id);
+                free(record);
+                record = NULL;
+                return record;
+            }
+            strncpy(record->e_mail, tempEmail, sizeof(tempEmail));
+            record->e_mail[strcspn(record->e_mail, "\n")] = 0;
+            break;
+        } else {
+            printf("Invalid input! Please try again.");
+        }
+    }
     
     //filling next node
     
@@ -211,7 +215,7 @@ record_t *createRecord() {
     printf("Address: %s,\n", record->address);
     printf("Gender: %s,\n", record->gender);
     printf("Phone Number: %ld,\n", *(record->p_num));
-//    printf("Email: %s,\n", record->e_mail);
+    printf("Email: %s,\n", record->e_mail);
 
     return record;
 
