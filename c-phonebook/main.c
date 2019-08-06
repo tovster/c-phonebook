@@ -8,10 +8,11 @@
 
 
 int main() {
+    setbuf(stdout, NULL);
     //Menu
-    //record_t record;
+    record_t *record;
     //menu(&record);
-    createRecord();
+    record = createRecord();
     //------------------------------------------
     
     //Testing list

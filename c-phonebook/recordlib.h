@@ -140,6 +140,7 @@ record_t *createRecord() {
     record->gender = (char *) malloc(gender);
     if (record->gender == NULL) {
         printf("Can't allocate memory for this record's gender!");
+        free(record->address);
         free(record->id);
         free(record);
         record = NULL;
@@ -150,59 +151,58 @@ record_t *createRecord() {
     //WORK IN PROGRESS, STILL NEEDS TESTING
     //filling phone number
     //Phone number must be 10 digits
+    long p_num;
+
     while(1){
-        char temp_p_num[10];
+        char temp_p_num[11];
         FLUSH;
         printf("Please enter a 10 digit phone number: ");
-        fgets(temp_p_num, 10, stdin);
+        fgets(temp_p_num, 11, stdin);
         //phone number must only contain digits
-        if (strlen(temp_p_num) == 10) {
-            for (int i = 0; i < 10; i++){
-                if (!isdigit(temp_p_num[i])) {
-                    break;
-                }
-            }
-            record->p_num = (char *) malloc(sizeof(temp_p_num) + 1);
+        p_num = strtol(temp_p_num, NULL, 0);
+        if (p_num > 999999999) {
+            record->p_num = (long *) malloc(sizeof(long));
             if (record->p_num == NULL) {
                 printf("Can't allocate memory for this record's phone number!");
+                free(record->gender);
+                free(record->address);
                 free(record->id);
                 free(record);
                 record = NULL;
                 return record;
             }
 
-            strncpy(record->p_num, temp_p_num, sizeof(temp_p_num));
-            record->p_num[strcspn(record->p_num, "\n")] = 0;
+            memcpy(record->p_num, &p_num, sizeof(p_num));
             break;
         } else {
             printf("Invalid input! Please try again.");
         }
     }
     
-    //filling email
-        while (1) {
-        char tempEmail[MAX_LEN * 2];
-        FLUSH;
-        printf("Please enter e-mail : ");
-        fgets(tempEmail, MAX_LEN*2, stdin);
-
-        if (strlen(tempEmail) > 1) {
-            record->e_mail = (char *) malloc(sizeof(tempEmail) + 1);
-            if (record->e_mail == NULL) {
-                printf("Can't allocate memory for this record's e_mail!");
-                free(record->id);
-                free(record);
-                record = NULL;
-                return record;
-            }
-            strncpy(record->e_mail, tempEmail, sizeof(tempEmail));
-            record->e_mail[strcspn(record->e_mail, "\n")] = 0;
-            break;
-        } else {
-            printf("Invalid input! Please try again.");
-        }
-    }
-    FLUSH;
+//    //filling email
+//        while (1) {
+//        char tempEmail[MAX_LEN * 2];
+//        FLUSH;
+//        printf("Please enter e-mail : ");
+//        fgets(tempEmail, MAX_LEN*2, stdin);
+//
+//        if (strlen(tempEmail) > 1) {
+//            record->e_mail = (char *) malloc(sizeof(tempEmail) + 1);
+//            if (record->e_mail == NULL) {
+//                printf("Can't allocate memory for this record's e_mail!");
+//                free(record->id);
+//                free(record);
+//                record = NULL;
+//                return record;
+//            }
+//            strncpy(record->e_mail, tempEmail, sizeof(tempEmail));
+//            record->e_mail[strcspn(record->e_mail, "\n")] = 0;
+//            break;
+//        } else {
+//            printf("Invalid input! Please try again.");
+//        }
+//    }
+//    FLUSH;
     
     //filling next node
     
@@ -210,37 +210,36 @@ record_t *createRecord() {
     printf("Name: %s,\n", record->name);
     printf("Address: %s,\n", record->address);
     printf("Gender: %s,\n", record->gender);
-    printf("Phone Number: %s,\n", record->p_num);
-    printf("Email: %s,\n", record->e_mail);
+    printf("Phone Number: %ld,\n", *(record->p_num));
+//    printf("Email: %s,\n", record->e_mail);
 
     return record;
 
 
 }
 
-record_t* createList(){
+record_t *createList(){
     record_t *record=NULL, *current=NULL, *head=NULL;
+
     while((record=createRecord()) != NULL){
         if(current == NULL){
             head = record;
-            break;
         }
         else{
             current->next = record;
-            break;
         }
     }
     return head;
 }
 
 //Broke 
-void printList(record_t *head){
-    record_t *current = (record_t *) malloc(sizeof(record_t)
-    while (current != NULL) {
-            printf("id: %d name: %s\n", current->id, current->name);
-            current = current->next;
-        }
-}
+//void printList(record_t *head){
+//    // record_t *current = (record_t *) malloc(sizeof(record_t));
+//    while (current != NULL) {
+//            printf("id: %d name: %s\n", current->id, current->name);
+//            current = current->next;
+//        }
+//}
 
 
 
