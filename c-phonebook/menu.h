@@ -36,7 +36,7 @@ void menu(record_t *root) {
 
     switch(menuOption) {
         case 1:
-            record_t* head = createList();
+            record_t * head = createList();
             break;
         case 2:
             break;
