@@ -49,6 +49,7 @@ void menu(record_t *head) {
         case 3:
             menu(head);
         case 4:
+            deleteRecord(head, 6969);
             menu(head);
         case 5:
             menu(head);

@@ -14,25 +14,24 @@
 
 #define MAX_LEN 25
 
+// Function init
 record_t *createRecord();
 
 record_t *createList();
 
-void appendRecord(record_t*);
+void appendRecord(record_t *);
 
-record_t *rebuildList(record_t *root);
+void deleteRecord(record_t *, int);
 
-void displayList(record_t *root);
-
-void deleteRecord(record_t *record);
-
-void deleteList(record_t *root);
+void deleteList(record_t *head);
 
 void printList(record_t *head);
 
 record_t modifyRecord(record_t *record);
 
 record_t searchRecord(int id, char *name);
+
+// Function definitions
 
 record_t *createRecord() {
 
@@ -54,12 +53,11 @@ record_t *createRecord() {
 
         id = strtol(&tempId, NULL, 0);
         //Go back to main menu if input == 0
-        if (id == 0){
+        if (id == 0) {
             //Back method to go back to the main menu
             printf("Exiting record creation");
             return NULL;
-        }
-        else if(id > 0) {
+        } else if (id > 0) {
             break;
         } else {
             printf("Incorrect value! Please try again.");
@@ -71,7 +69,7 @@ record_t *createRecord() {
         printf("Can not allocate memory for this contact. \n");
         return NULL;
     }
-    
+
     memcpy(&record->id, &id, sizeof(&id));  // copying the id into the record
 
     //filling name
@@ -98,13 +96,13 @@ record_t *createRecord() {
             printf("Invalid input! Please try again.");
         }
     }
-    
+
     //filling address
     while (1) {
         char tempAddress[MAX_LEN * 2];
         FLUSH;
         printf("Please enter a address: ");
-        fgets(tempAddress, MAX_LEN*2, stdin);
+        fgets(tempAddress, MAX_LEN * 2, stdin);
 
         if (strlen(tempAddress) > 1) {
             record->address = (char *) malloc(sizeof(tempAddress) + 1);
@@ -155,7 +153,7 @@ record_t *createRecord() {
     //Phone number must be 10 digits
     long p_num;
 
-    while(1){
+    while (1) {
         char temp_p_num[11];
         FLUSH;
         printf("Please enter a 10 digit phone number: ");
@@ -180,13 +178,13 @@ record_t *createRecord() {
             printf("Invalid input! Please try again.");
         }
     }
-    
+
     // filling email
     while (1) {
         char tempEmail[MAX_LEN * 2];
         FLUSH;
         printf("Please enter e-mail: ");
-        fgets(tempEmail, MAX_LEN*2, stdin);
+        fgets(tempEmail, MAX_LEN * 2, stdin);
 
         if (strlen(tempEmail) > 1) {
             record->e_mail = (char *) malloc(sizeof(tempEmail) + 1);
@@ -211,14 +209,13 @@ record_t *createRecord() {
     return record;
 }
 
-record_t *createList(){
-    record_t *record=NULL, *current=NULL, *head=NULL;
+record_t *createList() {
+    record_t *record = NULL, *current = NULL, *head = NULL;
 
-    while((record=createRecord()) != NULL){
-        if(head == NULL) {
+    while ((record = createRecord()) != NULL) {
+        if (head == NULL) {
             head = record;
-        }
-        else {
+        } else {
             current->next = record;
         }
         current = record;
@@ -235,16 +232,16 @@ void appendRecord(record_t *head) {
         while (current->next != NULL) {
             current = current->next;
         }
-        current -> next = createRecord();
+        current->next = createRecord();
     }
 }
 
-void printList(record_t *head){
+void printList(record_t *head) {
     if (head == NULL) {
         printf("Contact list is empty\n");
     } else {
         printf("Your contacts: \n\n");
-        record_t* current = head;
+        record_t *current = head;
         while (current != NULL) {
             printf("ID: %d\n", current->id);
             printf("Name: %s\n", current->name);
@@ -252,12 +249,42 @@ void printList(record_t *head){
             printf("Gender: %s\n", current->gender);
             printf("Phone Number: %ld\n", *(current->p_num));
             printf("Email: %s\n\n", current->e_mail);
-            current = current -> next;
+            current = current->next;
         }
     }
 }
 
+void deleteRecord(record_t *head, int id) {
+    /*
+     printf("Found record with ID of %d\n", id);
+                free(current->id);
+                free(current->name);
+                free(current->gender);
+                free(current->address);
+                free(current->e_mail);
+                free(current->p_num);
+                free(current);
 
+     */
+    if (head == NULL) {
+        printf("Can not delete record, list does not exist\n");
+    } else {
+        record_t *previous = NULL, *current = head, *next = NULL;
+        if (*current->id == id) {
+            if (current->next != NULL) {
+                next = current->next;
+            }
+            free(current->id);
+            free(current->name);
+            free(current->gender);
+            free(current->address);
+            free(current->e_mail);
+            free(current->p_num);
+            free(current);
+            printf("Deleted head node.");
+        }
+    }
+}
 
 
 #endif //C_PHONEBOOK_RECORDLIB_H
