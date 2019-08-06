@@ -27,7 +27,7 @@ void deleteRecord(record_t **, int);
 
 void printList(record_t *head);
 
-record_t modifyRecord(record_t *record);
+void modifyRecord(record_t*, int, char);
 
 record_t searchRecord(int id, char *name);
 
@@ -249,21 +249,58 @@ void freeRecord(record_t* record) {
     printf("Freed record");
 }
 
-void deleteRecord(record_t **head, int id) {
-    int i = 0;
+void deleteRecord(record_t **head, int index) {
     record_t* current = *head;
     record_t* tmp = NULL;
 
-    if (id == 0) {
-        if(current->next != NULL) {
-            tmp = current->next;
-            freeRecord(head);
-            *head = tmp;
-            return;
+    if (index == 1) {
+        if(*head == NULL) {
+            printf("List is already empty. \n");
+        } else {
+            record_t* toDelete = *head;
+            *head = (*head)->next;
+            freeRecord(*head);
         }
     }
-
 }
+
+void modifyRecord(record_t *head, int index, char field) {
+    record_t *current = head;
+    if (index != 0) {
+        for (int i = 0; i < index; ++i) {
+            current = current->next;
+        }
+    }
+    switch(field) {
+        case 'n':
+            while (1) {
+                char tempName[MAX_LEN];
+                FLUSH;
+                printf("Please enter a name: ");
+                fgets(tempName, MAX_LEN, stdin);
+
+                if (strlen(tempName) > 1) {
+                    strncpy(current->name, tempName, sizeof(tempName));
+                    current->name[strcspn(current->name, "\n")] = 0;
+                    break;
+                } else {
+                    printf("Invalid input! Please try again.");
+                }
+            }
+        case 'a':
+            break;
+        case 'g':
+            break;
+        case 'p':
+            break;
+        case 'e':
+            break;
+        default:
+            exit(-1);
+    }
+}
+
+
 
 
 #endif //C_PHONEBOOK_RECORDLIB_H

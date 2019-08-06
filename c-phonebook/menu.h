@@ -14,8 +14,10 @@ void menu(record_t*);
 void menu(record_t *head) {
     printf("********** 📞 CONTACTS **********\n\n");
     printf("Please select a menu option\n");
+    printf("(* signifies incomplete functionality)");
     printf("1.Add\t\t2.View All\t\t3.Modify\n");
-    printf("4.Delete\t5.Search\t\t6.Exit\n\n");
+    printf("4.(*)Delete\t5.Search\t\t6.Exit\n\n");
+
 
     int menuOption = 0;
     char userInput;
@@ -46,9 +48,10 @@ void menu(record_t *head) {
             printList(head);
             menu(head);
         case 3:
+            modifyRecord(head, 1, 'n');
             menu(head);
         case 4:
-            deleteRecord(head, 0);
+            deleteRecord(&head, 1);
             menu(head);
         case 5:
             menu(head);
