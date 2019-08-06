@@ -21,9 +21,9 @@ record_t *createList();
 
 void appendRecord(record_t *);
 
-void deleteRecord(record_t *, int);
+void freeRecord(record_t *);
 
-void deleteList(record_t *head);
+void deleteRecord(record_t **, int);
 
 void printList(record_t *head);
 
@@ -32,7 +32,7 @@ record_t modifyRecord(record_t *record);
 record_t searchRecord(int id, char *name);
 
 // Function definitions
-
+int id = 1;
 record_t *createRecord() {
 
     // mallocing record_t
@@ -43,26 +43,6 @@ record_t *createRecord() {
     }
 
     // filling id
-    int id;
-
-    while (1) {
-        char tempId;
-        FLUSH;
-        printf("Enter ID number: (Enter 0 to exit)");
-        fgets(&tempId, MAX_LEN, stdin);
-
-        id = strtol(&tempId, NULL, 0);
-        //Go back to main menu if input == 0
-        if (id == 0) {
-            //Back method to go back to the main menu
-            printf("Exiting record creation");
-            return NULL;
-        } else if (id > 0) {
-            break;
-        } else {
-            printf("Incorrect value! Please try again.");
-        }
-    }
     record->id = (int *) malloc(sizeof(&id));
     if (record->id == NULL) {
         free(record);
@@ -71,14 +51,18 @@ record_t *createRecord() {
     }
 
     memcpy(&record->id, &id, sizeof(&id));  // copying the id into the record
+    id++;
 
     //filling name
 
     while (1) {
         char tempName[MAX_LEN];
         FLUSH;
-        printf("Please enter a name: ");
+        printf("Please enter a name (or type done to return): ");
         fgets(tempName, MAX_LEN, stdin);
+        if(strncmp(tempName, "done\n", 4) == 0){
+            return NULL;
+        }
 
         if (strlen(tempName) > 1) {
             record->name = (char *) malloc(sizeof(tempName) + 1);
@@ -254,36 +238,31 @@ void printList(record_t *head) {
     }
 }
 
-void deleteRecord(record_t *head, int id) {
-    /*
-     printf("Found record with ID of %d\n", id);
-                free(current->id);
-                free(current->name);
-                free(current->gender);
-                free(current->address);
-                free(current->e_mail);
-                free(current->p_num);
-                free(current);
+void freeRecord(record_t* record) {
+    free(record->id);
+    free(record->name);
+    free(record->gender);
+    free(record->address);
+    free(record->e_mail);
+    free(record->p_num);
+    free(record);
+    printf("Freed record");
+}
 
-     */
-    if (head == NULL) {
-        printf("Can not delete record, list does not exist\n");
-    } else {
-        record_t *previous = NULL, *current = head, *next = NULL;
-        if (*current->id == id) {
-            if (current->next != NULL) {
-                next = current->next;
-            }
-            free(current->id);
-            free(current->name);
-            free(current->gender);
-            free(current->address);
-            free(current->e_mail);
-            free(current->p_num);
-            free(current);
-            printf("Deleted head node.");
+void deleteRecord(record_t **head, int id) {
+    int i = 0;
+    record_t* current = *head;
+    record_t* tmp = NULL;
+
+    if (id == 0) {
+        if(current->next != NULL) {
+            tmp = current->next;
+            freeRecord(head);
+            *head = tmp;
+            return;
         }
     }
+
 }
 
 

@@ -34,7 +34,6 @@ void menu(record_t *head) {
             printf("Invalid option, please try again.\n");
         }
     }
-
     switch(menuOption) {
         case 1:
             if (head == NULL) {
@@ -49,7 +48,7 @@ void menu(record_t *head) {
         case 3:
             menu(head);
         case 4:
-            deleteRecord(head, 6969);
+            deleteRecord(head, 0);
             menu(head);
         case 5:
             menu(head);
