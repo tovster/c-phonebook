@@ -7,6 +7,7 @@
 
 #include <stdio.h>
 #include "pbutils.h"
+#include "record.h"
 
 void menu(record_t*);
 
@@ -36,7 +37,7 @@ void menu(record_t *root) {
 
     switch(menuOption) {
         case 1:
-            record_t * head = createList();
+            //*head = createList();
             break;
         case 2:
             break;
